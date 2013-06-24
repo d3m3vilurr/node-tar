@@ -343,7 +343,14 @@ tap.test("extract test", function (t) {
         , nlink: entry.props.nlink
         }
 
-      var wanted = expectFiles[ef ++]
+      //var wanted = expectFiles[ef ++]
+      var wanted
+      expectFiles.some(function (expect) {
+        if (expect.path !== found.path) return
+        wanted = expect
+        return true
+      });
+      if (wanted) ef ++
 
       t.has(found, wanted, "unpacked file " + ef + " " + wanted.path)
 
